@@ -38,8 +38,11 @@ def check_text(text: str) -> None:
 
 
 def check_text_clean(text: str) -> None:
-    """The judge reads the text exactly as written: no control
-    characters other than newlines, and a clean UTF-8 round-trip."""
+    """The judge reads the text exactly as written: one line only,
+    no control characters other than newlines, and a clean UTF-8
+    round-trip."""
+    if "\n" in text:
+        raise ValueError("text must be a single line")
     for char in text:
         if char != "\n" and ord(char) < 0x20:
             raise ValueError(f"control character U+{ord(char):04X} in text")
